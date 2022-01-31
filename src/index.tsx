@@ -5,15 +5,18 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Login from "./pages/login";
+import { CookiesProvider } from "react-cookie";
 
 ReactDOM.render(
     <React.StrictMode>
-        <BrowserRouter>
-            <Routes>
-                <Route path="/" element={<App />} />
-                <Route path="/login" element={<Login />} />
-            </Routes>
-        </BrowserRouter>
+        <CookiesProvider>
+            <BrowserRouter>
+                <Routes>
+                    <Route path="/" element={<App />} />
+                    <Route path="/login" element={<Login />} />
+                </Routes>
+            </BrowserRouter>
+        </CookiesProvider>
     </React.StrictMode>,
     document.getElementById("root")
 );
