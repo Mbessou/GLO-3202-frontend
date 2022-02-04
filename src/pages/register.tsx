@@ -1,4 +1,5 @@
 import { Button, styled } from "@mui/material";
+import { red } from "@mui/material/colors";
 import TextField from "@mui/material/TextField";
 import { FormEvent, useState, useEffect } from "react";
 import { useCookies } from "react-cookie";
@@ -22,21 +23,27 @@ const FormContainer = styled("form")({
     borderRadius: "10px",
 });
 
-const LoginInput = styled(TextField)({
+const RegisterInput = styled(TextField)({
     marginBottom: "1em",
     color: "white",
 });
 
-const LoginButton = styled(Button)({});
+const RegisterButton = styled(Button)({});
 
-const RegisterLink = styled(Link)({
+const RegisterError = styled("div")({
+    color: "red",
+});
+
+const LoginLink = styled(Link)({
     marginTop: "1em",
     alignSelf: "center",
 });
 
-export default function Login() {
+export default function Register() {
     const [email, setEmail] = useState("");
+    const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
     const [cookie, setCookie, removeCookie] = useCookies(["token"]);
     const navigate = useNavigate();
 
@@ -64,7 +71,16 @@ export default function Login() {
     return (
         <Body>
             <FormContainer onSubmit={handleSubmit}>
-                <LoginInput
+                <RegisterInput
+                    id="username"
+                    label="Username"
+                    variant="outlined"
+                    required
+                    type="text"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                />
+                <RegisterInput
                     id="email"
                     label="Email"
                     variant="outlined"
@@ -73,7 +89,7 @@ export default function Login() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                 />
-                <LoginInput
+                <RegisterInput
                     id="password"
                     label="Password"
                     variant="outlined"
@@ -82,10 +98,19 @@ export default function Login() {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                 />
-                <LoginButton variant="contained" type="submit">
-                    Login
-                </LoginButton>
-                <RegisterLink to="/register">Sign up</RegisterLink>
+                <RegisterInput
+                    id="confirm-password"
+                    label="Confirm password"
+                    variant="outlined"
+                    type="password"
+                    required
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                />
+                <RegisterButton variant="contained" type="submit">
+                    Register
+                </RegisterButton>
+                <LoginLink to="/login">Sign in</LoginLink>
             </FormContainer>
         </Body>
     );
